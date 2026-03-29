@@ -7,6 +7,14 @@
     document.querySelector(".hero")?.classList.add("hero-anim");
   }
 
+  function tryPlayHeroVideo() {
+    const v = document.querySelector(".hero .video-inner video");
+    if (!v) return;
+    v.muted = true;
+    const p = v.play();
+    if (p !== undefined && typeof p.catch === "function") p.catch(() => {});
+  }
+
   /* Intro splash */
   const intro = document.getElementById("intro-overlay");
   const INTRO_MS = 1600;
@@ -16,16 +24,21 @@
     intro.classList.add("is-done");
     document.body.style.overflow = "";
     startHeroAnim();
+    requestAnimationFrame(() => {
+      requestAnimationFrame(tryPlayHeroVideo);
+    });
   }
 
   if (reduceMotion) {
     startHeroAnim();
     if (intro) intro.classList.add("is-done");
+    tryPlayHeroVideo();
   } else if (intro) {
     document.body.style.overflow = "hidden";
     window.setTimeout(hideIntro, INTRO_MS);
   } else {
     startHeroAnim();
+    tryPlayHeroVideo();
   }
 
   /* Scroll reveal */
