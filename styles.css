@@ -581,7 +581,19 @@ a {
     0 0 40px rgba(45, 212, 191, 0.1);
 }
 
-@media (min-width: 640px) {
+/* Mobile: moldura fina e sombra leve — menos “peso” na tela */
+@media (max-width: 767px) {
+  .video-shell {
+    padding: 1px;
+    border-radius: 14px;
+    box-shadow:
+      0 0 0 1px rgba(45, 212, 191, 0.1),
+      0 8px 28px rgba(0, 0, 0, 0.42),
+      0 0 20px rgba(45, 212, 191, 0.06);
+  }
+}
+
+@media (min-width: 768px) {
   .video-shell {
     box-shadow:
       0 0 0 1px rgba(45, 212, 191, 0.15),
@@ -590,20 +602,23 @@ a {
   }
 }
 
-/* borda a borda no mobile, alinhado ao gutter no desktop */
+/* Mobile: não invade as bordas da tela — fica dentro do gutter + largura contida */
 .video-shell--flush {
-  margin-left: calc(-1 * var(--gutter));
-  margin-right: calc(-1 * var(--gutter));
-  width: calc(100% + 2 * var(--gutter));
-  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: min(300px, calc(100% - 0.5rem));
   border-radius: 12px;
+}
+
+@media (min-width: 400px) and (max-width: 767px) {
+  .video-shell--flush {
+    max-width: min(316px, calc(100% - 0.75rem));
+  }
 }
 
 @media (min-width: 768px) {
   .video-shell--flush {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
     max-width: min(420px, 100%);
     border-radius: var(--radius-lg);
   }
@@ -638,8 +653,10 @@ a {
   aspect-ratio: 9 / 16;
 }
 
-.video-shell--flush .video-inner {
-  border-radius: 10px;
+@media (max-width: 767px) {
+  .video-shell--flush .video-inner {
+    border-radius: 13px;
+  }
 }
 
 @media (min-width: 768px) {
